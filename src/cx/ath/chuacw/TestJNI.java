@@ -5,6 +5,7 @@ public class TestJNI {
 	int A, B, C, D;
 	String s;
 	
+   
    public TestJNI(int A, int B, int C, int D, String s) {
 	   this.A = A;
 	   this.B = B;
@@ -13,6 +14,19 @@ public class TestJNI {
 	   this.s = s;
 	   System.out.println("toString: " + this.toString());
 	   System.out.println("this: " + this);
+   }
+   
+   // The Result methods will be called from Delphi, and thus the parameters are passed
+   // from Delphi. These methods tests that the marshalling code is correct and
+   // generates the expected results, as well as ensure that the marshalling code and
+   // code generation for the Delphi interfaces and implemenation are correct.
+   
+   public int[] Result(int A, float B) {
+	   int[] LResult = new int[3];
+	   LResult[0] = A;
+	   LResult[1] = (int)B;
+	   LResult[2] = LResult[0] * LResult[1];
+	   return LResult;
    }
    
    public Double[] Result(int A, int B) {
